@@ -30,7 +30,7 @@ public class JuegoControlador : MonoBehaviour {
 		ArrayList objetos = new ArrayList();
 		if(nivel == 1){
 			//Portero
-			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
+			//objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
 			objetos.Add(new ObjetoPlantilla("Cilindro",2.5f,2.759493f,-10.93861f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",2.5f,2.759493f,-17.5f));
@@ -47,7 +47,7 @@ public class JuegoControlador : MonoBehaviour {
 		}
 		else if(nivel == 2){
 			//Portero
-			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
+			//objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
 			objetos.Add(new ObjetoPlantilla("Cilindro",2.5f,2.759493f,-10.93861f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",2.5f,2.759493f,-17.5f));
