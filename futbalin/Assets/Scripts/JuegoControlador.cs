@@ -6,6 +6,7 @@ public class JuegoControlador : MonoBehaviour {
 	public int CANTIDAD_GOLES = 1;
 	int numGoles;
 	public int nivel = 1;
+	public bool pause = false;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +15,24 @@ public class JuegoControlador : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.GetKeyUp("p") ){
+			pause = pause == false ? true : false;
+		}
+		
+		if(pause){
+			Time.timeScale = 0;
+			GameObject.Find("musicaJuego").audio.Pause();
+			//GameObject.Find("PausaMensaje").GetComponent("MeshFilter").renderer.enabled = true;
+			GameObject.Find("PausaMensaje").renderer.enabled = true;
+		}
+		else{
+			Time.timeScale = 1;
+			if(!GameObject.Find("musicaJuego").audio.isPlaying){
+				GameObject.Find("musicaJuego").audio.Play();
+				GameObject.Find("PausaMensaje").renderer.enabled = false;
+			}
+		}
+		
 	}
 	
 	
@@ -130,6 +148,11 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,2));
 			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,3));
 			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,3));
+			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
+			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
+			
+			
+			
 		}
 		
 		else if(nivel == 6){
@@ -150,8 +173,10 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f,1));
 			
 			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,3));
-			/*objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,3));
-			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,3));*/
+			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
+			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
+			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,-22f));
+			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,0.5f));
 		}
 		
 		

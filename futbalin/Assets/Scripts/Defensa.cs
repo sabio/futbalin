@@ -78,9 +78,9 @@ public class Defensa : MonoBehaviour {
 		{
 			float posicionPelota = pelota.transform.position.z;
 			
-			if((transform.position.z-1) >= posicionPelota){
+			if((transform.position.z-1) >= posicionPelota && limiteInferior <= transform.position.z){
 				transform.Translate(Vector3.back * Time.deltaTime*velocidadNivel3);
-			}else if((transform.position.z+1) < posicionPelota){
+			}else if((transform.position.z+1) < posicionPelota && limiteSuperior >= transform.position.z){
 				transform.Translate(Vector3.forward * Time.deltaTime*velocidadNivel3);
 			}
 		}
