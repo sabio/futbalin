@@ -4,6 +4,7 @@ using System.Collections;
 public class MovimientoPelota : MonoBehaviour {
 	
 	public float moveSpeed = 60.0f;
+	private bool camaraVolteada = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -22,8 +23,14 @@ public class MovimientoPelota : MonoBehaviour {
 		Vector3 forwardForce = new Vector3();
 		
 		forwardForce = forward * Input.GetAxis("Vertical") * moveSpeed;
-		rigidbody.AddForce(-forwardForce);
 		
+		if(camaraVolteada){
+			rigidbody.AddForce(forwardForce);
+			
+		}else{
+			rigidbody.AddForce(-forwardForce);
+			
+		}
 		Vector3 right= Camera.main.transform.TransformDirection(Vector3.right);
 		right.y = 0;
 		right = right.normalized;
@@ -60,6 +67,12 @@ public class MovimientoPelota : MonoBehaviour {
 			script.GOOOL();
 		}
     }
+	
+	
+	public void setCamaraVolteada(bool camaraVolteada){
+		this.camaraVolteada = camaraVolteada;
+	}
+	
     	
 }
 
