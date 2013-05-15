@@ -43,7 +43,7 @@ public class JuegoControlador : MonoBehaviour {
 		nivel = nivelDeInicio;
 		timer = tiempoDelJuego;
 		terminoElTiempo = false;
-		empezarNivel(nivel);	
+		empezarNivel();	
 	}
 	
 	
@@ -88,7 +88,7 @@ public class JuegoControlador : MonoBehaviour {
 				}
 			}
 			
-			timer -= Time.deltaTime;;
+			timer -= Time.deltaTime;
 			updateMarcador();
 		}
 	}
@@ -109,7 +109,11 @@ public class JuegoControlador : MonoBehaviour {
 			
 			if(op.nombre.Equals("Cilindro") || op.nombre.Equals("Barra")){
 				Defensa script = clonado.GetComponent<Defensa>();
-				script.nivelDefensa = op.nivel;
+				if(nivel > 20 && op.nombre.Equals("Barra")){
+					script.nivelDefensa = 4;
+				}else{
+					script.nivelDefensa = op.nivel;
+				}
 			}
 		}
 	}
@@ -132,6 +136,7 @@ public class JuegoControlador : MonoBehaviour {
 			pelota.name = "pelota";
 			pelota.tag = "objetoDeCancha";
 			establecerOrientacionDelBalon(pelota);
+			establecerVelocidadDelBalon(pelota);
 			
 			updateMarcador();
 		}
@@ -159,7 +164,7 @@ public class JuegoControlador : MonoBehaviour {
 			Cancha.renderer.material = canchaMaterial1;
 		}
 		
-		empezarNivel(nivel);
+		empezarNivel();
 		
 	}
 	
@@ -174,7 +179,9 @@ public class JuegoControlador : MonoBehaviour {
 	void voltearCancha(){
 		GameObject pelota = GameObject.Find("pelota");
 		GameObject marcador = GameObject.Find("Marcador");
+		GameObject pausaMensaje = GameObject.Find("PausaMensaje");
 		marcador.transform.Rotate(0,0,180);
+		pausaMensaje.transform.Rotate(0,0,180);
 		MovimientoPelota script = pelota.GetComponent<MovimientoPelota>();
 		Camera.main.transform.Rotate(0,0,180);
 		Vector3 posCamara = Camera.main.transform.position;
@@ -182,9 +189,13 @@ public class JuegoControlador : MonoBehaviour {
 		if(ahoritaMeteGolEnLaPorteriaDerecha == true){
 			ahoritaMeteGolEnLaPorteriaDerecha = false;
 			marcador.transform.position = new Vector3(posCamara.x,posCamara.y-17,posCamara.z-9);
+			pausaMensaje.transform.position = new Vector3(8.093399f,9.23919f,-14.13325f);
+			
 		}else{
 			ahoritaMeteGolEnLaPorteriaDerecha = true;
 			marcador.transform.position = new Vector3(posCamara.x-8,posCamara.y-17,posCamara.z+9);
+			pausaMensaje.transform.position = new Vector3(-3.314562f,9.674511f,-7.034167f);
+			
 		}
 	}
 	
@@ -196,16 +207,22 @@ public class JuegoControlador : MonoBehaviour {
 		}else{
 			script.setCamaraVolteada(true);
 		}
-		
-		
+	}
+	
+	void establecerVelocidadDelBalon(GameObject pelota){
+		MovimientoPelota script = pelota.GetComponent<MovimientoPelota>();
+		Vector3 posCamara = Camera.main.transform.position;
+		if(nivel > 20){
+			script.moveSpeed = 120f;
+		}else{
+			script.moveSpeed = 60f;
+		}	
 	}
 	
 	
 	
 	
-	
-	
-	void empezarNivel(int nivel){
+	void empezarNivel(){
 		limpiarObjetosDelCampo();
 		
 		GameObject pelota = Instantiate( Resources.LoadAssetAtPath("Assets/Objetos/pelota.prefab", typeof(GameObject)) ) as GameObject;
@@ -213,16 +230,17 @@ public class JuegoControlador : MonoBehaviour {
 		pelota.name = "pelota";
 		pelota.tag = "objetoDeCancha";
 		establecerOrientacionDelBalon(pelota);
+		establecerVelocidadDelBalon(pelota);
 		
 		ArrayList objetos = new ArrayList();
-		if(nivel == 1){
+		if(nivel == 1 || nivel == 21){
 			//medios
 			objetos.Add(new ObjetoPlantilla("Cilindro",8.5f,2.759493f,-10.93861f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",8.5f,2.759493f,-17.5f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",8.52f,2.759493f,-4.5f));
 			
 		}
-		else if(nivel == 2){
+		else if(nivel == 2 || nivel == 22){
 			//medios
 			objetos.Add(new ObjetoPlantilla("Cilindro",8.5f,2.759493f,-10.93861f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",8.5f,2.759493f,-17.5f));
@@ -232,7 +250,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			
 		}
-		else if(nivel == 3){
+		else if(nivel == 3 || nivel == 23){
 			//Delanteros
 			objetos.Add(new ObjetoPlantilla("Cilindro",2.5f,2.759493f,-10.93861f));
 			//medios
@@ -244,7 +262,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			
 		}
-		else if(nivel == 4){
+		else if(nivel == 4 || nivel == 24){
 			//Delanteros
 			objetos.Add(new ObjetoPlantilla("Cilindro",2.5f,2.759493f,-17.5f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",2.52f,2.759493f,-4.5f));
@@ -258,7 +276,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 		}
-		else if(nivel == 5){
+		else if(nivel == 5 || nivel == 25){
 			//Delanteros
 			objetos.Add(new ObjetoPlantilla("Cilindro",2.5f,2.759493f,-10.93861f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",2.5f,2.759493f,-17.5f));
@@ -273,7 +291,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 		}
-		else if(nivel == 6){
+		else if(nivel == 6 || nivel == 26){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -290,7 +308,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 		}
-		else if(nivel == 7){
+		else if(nivel == 7 || nivel == 27){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -309,7 +327,7 @@ public class JuegoControlador : MonoBehaviour {
 			
 			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,2));
 		}
-		else if(nivel == 8){
+		else if(nivel == 8 || nivel == 28){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -330,7 +348,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,2));
 		}
 		
-		else if(nivel == 9){
+		else if(nivel == 9 || nivel == 29){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -352,7 +370,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,1));
 		}
 		
-		else if(nivel == 10){
+		else if(nivel == 10 || nivel == 30){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -374,7 +392,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,2));
 		}
 		
-		else if(nivel == 11){
+		else if(nivel == 11 || nivel == 31){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -397,7 +415,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
 		
-		else if(nivel == 12){
+		else if(nivel == 12 || nivel == 32){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -421,7 +439,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
 		
-		else if(nivel == 13){
+		else if(nivel == 13 || nivel == 33){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -445,7 +463,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
 		
-		else if(nivel == 14){
+		else if(nivel == 14 || nivel == 34){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -469,7 +487,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
 		
-		else if(nivel == 15){
+		else if(nivel == 15 || nivel == 35){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -493,7 +511,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
 		
-		else if(nivel == 16){
+		else if(nivel == 16 || nivel == 36){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -517,7 +535,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
 		
-		else if(nivel == 17){
+		else if(nivel == 17 || nivel == 37){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f));
 			//Delanteros
@@ -542,7 +560,7 @@ public class JuegoControlador : MonoBehaviour {
 			
 		}
 		
-		else if(nivel == 18){
+		else if(nivel == 18 || nivel == 38){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f,1));
 			//Delanteros
@@ -564,7 +582,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,0.5f));
 		}
 		
-		else if(nivel == 19){
+		else if(nivel == 19 || nivel == 39){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f,1));
 			//Delanteros
@@ -588,7 +606,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,0.5f));
 		}
 		
-		else if(nivel == 20){
+		else if(nivel == 20 || nivel == 40){
 			//Portero
 			objetos.Add(new ObjetoPlantilla("Cilindro",18.37619f,2.759493f,-10.74366f,1));
 			//Delanteros

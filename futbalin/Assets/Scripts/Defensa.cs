@@ -23,6 +23,9 @@ public class Defensa : MonoBehaviour {
 	//Exclusivo para nivel de defensa 3
 	int velocidadNivel3 = 7; 
 	
+	//Exclusivo para nivel de defensa 5
+	int velocidadNivel4 = 12; 
+	
 	// Update is called once per frame
 	void Update () {
 		switch(nivelDefensa){
@@ -34,6 +37,9 @@ public class Defensa : MonoBehaviour {
 				break;
 			case 3:
 				nivelDefensa3();
+				break;
+			case 4:
+				nivelDefensa4();
 				break;
 			
 		}
@@ -82,6 +88,20 @@ public class Defensa : MonoBehaviour {
 				transform.Translate(Vector3.back * Time.deltaTime*velocidadNivel3);
 			}else if((transform.position.z+1) < posicionPelota && limiteSuperior >= transform.position.z){
 				transform.Translate(Vector3.forward * Time.deltaTime*velocidadNivel3);
+			}
+		}
+	}
+	
+	void nivelDefensa4(){
+		GameObject pelota = GameObject.Find("pelota") as GameObject;
+		if(pelota != null)
+		{
+			float posicionPelota = pelota.transform.position.z;
+			
+			if((transform.position.z-1) >= posicionPelota && limiteInferior <= transform.position.z){
+				transform.Translate(Vector3.back * Time.deltaTime*velocidadNivel4);
+			}else if((transform.position.z+1) < posicionPelota && limiteSuperior >= transform.position.z){
+				transform.Translate(Vector3.forward * Time.deltaTime*velocidadNivel4);
 			}
 		}
 	}
