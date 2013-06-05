@@ -27,6 +27,9 @@ public class JuegoControlador : MonoBehaviour {
 		
 		iniciarJuego();
 		
+		
+		Cancha.renderer.material = canchaMaterial1;
+		
 		Vector3 posCamara = Camera.main.transform.position;
 		GameObject marcador = GameObject.Find("Marcador");
 		if(!ahoritaMeteGolEnLaPorteriaDerecha){
@@ -51,8 +54,9 @@ public class JuegoControlador : MonoBehaviour {
 		if(terminoElTiempo){
 			GUI.Box(new Rect(0,0,Screen.width ,Screen.height),"Se acabo el juego",skin.GetStyle("box"));
 			((TextMesh)GameObject.Find("Marcador").GetComponent(typeof(TextMesh))).text = "";
-			if(GUI.Button(new Rect(Screen.height/2 - 50,Screen.width/2 - 100,200,100), "Empezar Juego",skin.GetStyle("button"))) {
-				Start();
+			if( GUI.Button(new Rect(Screen.width/2 - 100,Screen.height/2 - 50,200,100), "Conseguiste "+numGoles+" goles!!",skin.GetStyle("button")) ) {
+				PlayerPrefs.SetInt("puntajeAdquirido",numGoles);
+				Application.LoadLevel(1);
 			}
 		}
 		else if(pause){
@@ -325,7 +329,7 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,2));
 		}
 		else if(nivel == 8 || nivel == 28){
 			//Portero
@@ -344,8 +348,8 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",13f,3.082378f,2f,2));
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",16.3f,3.082378f,2f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,2));
 		}
 		
 		else if(nivel == 9 || nivel == 29){
@@ -365,9 +369,9 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",13f,3.082378f,2f,2));
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,1));
-			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,1));
+			objetos.Add(new ObjetoPlantilla("Barra",16.3f,3.082378f,2f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,1));
+			objetos.Add(new ObjetoPlantilla("Barra",0f,3.082378f,2f,1));
 		}
 		
 		else if(nivel == 10 || nivel == 30){
@@ -387,9 +391,9 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",13f,3.082378f,2f,2));
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,2));
-			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",16f,3.082378f,2f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",0f,3.082378f,2f,2));
 		}
 		
 		else if(nivel == 11 || nivel == 31){
@@ -409,8 +413,8 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,3));
-			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",0f,3.082378f,2f,3));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
@@ -432,8 +436,8 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,2));
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",16.3f,3.082378f,2f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,3));
 			
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
@@ -456,9 +460,9 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,2));
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,3));
-			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",16.3f,3.082378f,2f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",0f,3.082378f,2f,3));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
@@ -480,9 +484,9 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,2));
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,3));
-			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",16.3f,3.082378f,2f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",0f,3.082378f,2f,3));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
@@ -504,9 +508,9 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,2));
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,3));
-			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",16f,3.082378f,2f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",0f,3.082378f,2f,3));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
@@ -528,9 +532,9 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,2));
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,3));
-			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",16f,3.082378f,2f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",0f,3.082378f,2f,3));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 		}
@@ -552,9 +556,9 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,2));
-			objetos.Add(new ObjetoPlantilla("Barra",9f,3.082378f,-14.48495f,3));
-			objetos.Add(new ObjetoPlantilla("Barra",2f,3.082378f,2f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",16f,3.082378f,2f,2));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,-14.48495f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",0f,3.082378f,2f,3));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 			
@@ -575,11 +579,11 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-1.795187f,2));
 			
 			
-			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,3));
-			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
+			objetos.Add(new ObjetoPlantilla("Barra",16f,3.082378f,2f,3));
+			/*objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,-22f));
-			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,0.5f));
+			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,0.5f));*/
 		}
 		
 		else if(nivel == 19 || nivel == 39){
@@ -599,11 +603,11 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f,1));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f,1));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,3));
-			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
+			objetos.Add(new ObjetoPlantilla("Barra",16f,3.082378f,2f,3));
+			/*objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,-22f));
-			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,0.5f));
+			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,0.5f));*/
 		}
 		
 		else if(nivel == 20 || nivel == 40){
@@ -623,12 +627,13 @@ public class JuegoControlador : MonoBehaviour {
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-14.63951f,1));
 			objetos.Add(new ObjetoPlantilla("Cilindro",14.07548f,2.759493f,-20.2f,1));
 			
-			objetos.Add(new ObjetoPlantilla("Barra",19f,3.082378f,2f,3));
-			objetos.Add(new ObjetoPlantilla("Barra",15f,3.082378f,2f,3));
-			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
+			objetos.Add(new ObjetoPlantilla("Barra",16f,3.082378f,2f,3));
+			objetos.Add(new ObjetoPlantilla("Barra",11f,3.082378f,2f,3));
+			/*objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",6.960938f,2.817461f,0.5f));
 			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,-22f));
 			objetos.Add(new ObjetoPlantilla("Bloque",15f,2.817461f,0.5f));
+			*/
 		}
 		
 		
