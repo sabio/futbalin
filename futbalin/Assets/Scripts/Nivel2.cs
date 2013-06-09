@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class JuegoControlador : MonoBehaviour {
+public class Nivel2 : MonoBehaviour {
 	
 	public int CANTIDAD_GOLES = 1;
 	int numGoles;
@@ -29,7 +29,7 @@ public class JuegoControlador : MonoBehaviour {
 		
 		
 		Cancha.renderer.material = canchaMaterial1;
-		
+		 
 		Vector3 posCamara = Camera.main.transform.position;
 		GameObject marcador = GameObject.Find("Marcador");
 		if(!ahoritaMeteGolEnLaPorteriaDerecha){
@@ -39,7 +39,7 @@ public class JuegoControlador : MonoBehaviour {
 		}
 		
 	}
-	
+		
 	
 	void iniciarJuego(){
 		numGoles = 0;
@@ -52,12 +52,7 @@ public class JuegoControlador : MonoBehaviour {
 	
 	void OnGUI () {
 		if(terminoElTiempo){
-			GUI.Box(new Rect(0,0,Screen.width ,Screen.height),"Se acabo el juego",skin.GetStyle("box"));
-			((TextMesh)GameObject.Find("Marcador").GetComponent(typeof(TextMesh))).text = "";
-			if( GUI.Button(new Rect(Screen.width/2 - 100,Screen.height/2 - 50,200,100), "Conseguiste "+numGoles+" goles!",skin.GetStyle("button")) ) {
-				PlayerPrefs.SetInt("puntajeAdquirido",numGoles);
-				Application.LoadLevel(2);
-			}
+			Application.LoadLevel(0);
 		}
 		else if(pause){
 			GUI.Box(new Rect(0,0,Screen.width ,Screen.height),"");
@@ -125,8 +120,8 @@ public class JuegoControlador : MonoBehaviour {
 	void updateMarcador(){
 		GameObject marcador = GameObject.Find("Marcador");
 		TextMesh t = (TextMesh)marcador.GetComponent(typeof(TextMesh));
-		//t.text = "Goles: "+numGoles+"\nNivel: "+nivel+"    Tiempo: "+((int)timer);
-		t.text = "Goles: "+numGoles+"\nTiempo: "+((int)timer);
+		t.text = "Goles: "+numGoles+"\nEscena: "+nivel+"    Tiempo: "+((int)timer);
+		//t.text = "Goles: "+numGoles+"\nTiempo: "+((int)timer);
 	}
 	
 	public void GOOOL(){
@@ -152,13 +147,9 @@ public class JuegoControlador : MonoBehaviour {
 	void irAlSiguienteNivel(){
 		nivel++;
 		
-		if(nivel == 10){
-			voltearCancha();	
-			Cancha.renderer.material = canchaMaterial2;
-		}
-		if(nivel == 20){
-			voltearCancha();
-			Cancha.renderer.material = canchaMaterial3;
+
+		if(nivel == 12){
+			Application.LoadLevel(0);
 		}
 		if(nivel == 30){
 			voltearCancha();
@@ -654,7 +645,7 @@ public class JuegoControlador : MonoBehaviour {
 
 
 
-
+/*
 
 
 class ObjetoPlantilla{
@@ -683,4 +674,7 @@ class ObjetoPlantilla{
 	public ObjetoPlantilla()
 	{
 	}
+	
 }
+
+*/

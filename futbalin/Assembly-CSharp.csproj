@@ -50,6 +50,12 @@
      <Compile Include="Assets\Scripts\MostrarPuntajes.cs" />
      <Compile Include="Assets\Scripts\MovimientoCancha.cs" />
      <Compile Include="Assets\Scripts\MovimientoPelota.cs" />
+     <Compile Include="Assets\Scripts\Nivel1.cs" />
+     <Compile Include="Assets\Scripts\Nivel2.cs" />
+     <Compile Include="Assets\Scripts\Nivel3.cs" />
+     <Compile Include="Assets\Scripts\Nivel4.cs" />
+     <Compile Include="Assets\Scripts\Niveles.cs" />
+     <Compile Include="Assets\Scripts\PantallaPrincipal.cs" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
   </ItemGroup>
   <ItemGroup>

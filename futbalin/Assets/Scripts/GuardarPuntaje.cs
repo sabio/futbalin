@@ -65,11 +65,11 @@ public class GuardarPuntaje : MonoBehaviour {
 			// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
 			if(GUI.Button(new Rect(Screen.width/2-50,Screen.height/2-100,100,20), "Guardar")) {
 				guardarNuevoPuntaje(nombre,PlayerPrefs.GetInt("puntajeAdquirido"));
-				Application.LoadLevel(2);
+				Application.LoadLevel(3);
 			}
 		}
 		else{
-			Application.LoadLevel(2);	
+			Application.LoadLevel(3);	
 		}
 	}
 	

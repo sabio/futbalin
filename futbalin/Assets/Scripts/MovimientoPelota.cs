@@ -66,6 +66,30 @@ public class MovimientoPelota : MonoBehaviour {
 			//JuegoControlador script = obj.GetComponent(typeof(JuegoControlador));
 			script.GOOOL();
 		}
+		else if(other.transform.name=="PorteriaNivel1"){
+			GameObject obj = GameObject.Find("JuegoControlador");
+		 	Nivel1 script = obj.GetComponent<Nivel1>();
+			//JuegoControlador script = obj.GetComponent(typeof(JuegoControlador));
+			script.GOOOL();
+		}
+		else if(other.transform.name=="PorteriaNivel2"){
+			GameObject obj = GameObject.Find("JuegoControlador");
+		 	Nivel2 script = obj.GetComponent<Nivel2>();
+			//JuegoControlador script = obj.GetComponent(typeof(JuegoControlador));
+			script.GOOOL();
+		}
+		else if(other.transform.name=="PorteriaNivel3"){
+			GameObject obj = GameObject.Find("JuegoControlador");
+		 	Nivel3 script = obj.GetComponent<Nivel3>();
+			//JuegoControlador script = obj.GetComponent(typeof(JuegoControlador));
+			script.GOOOL();
+		}
+		else if(other.transform.name=="PorteriaNivel4"){
+			GameObject obj = GameObject.Find("JuegoControlador");
+		 	Nivel4 script = obj.GetComponent<Nivel4>();
+			//JuegoControlador script = obj.GetComponent(typeof(JuegoControlador));
+			script.GOOOL();
+		}
     }
 	
 	
