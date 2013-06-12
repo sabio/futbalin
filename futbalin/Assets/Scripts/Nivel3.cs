@@ -18,6 +18,7 @@ public class Nivel3 : MonoBehaviour {
 	public Material canchaMaterial4;
 	public GameObject Cancha;
 	private bool ahoritaMeteGolEnLaPorteriaDerecha = true;
+	private bool seTermino = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -51,8 +52,12 @@ public class Nivel3 : MonoBehaviour {
 	
 	
 	void OnGUI () {
-		if(terminoElTiempo){
-			Application.LoadLevel(0);
+		if(seTermino){
+			GUI.Box(new Rect(0,0,Screen.width ,Screen.height),"Se acabo el juego",skin.GetStyle("box"));
+			((TextMesh)GameObject.Find("Marcador").GetComponent(typeof(TextMesh))).text = "";
+			if( GUI.Button(new Rect(Screen.width/2 - 100,Screen.height/2 - 50,200,100), "Menu principal",skin.GetStyle("button")) ) {
+				Application.LoadLevel(0);
+			}
 		}
 		else if(pause){
 			GUI.Box(new Rect(0,0,Screen.width ,Screen.height),"");
@@ -63,10 +68,10 @@ public class Nivel3 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(timer <= 0 ) 
-			terminoElTiempo = true;
+		/*if(timer <= 0 ) 
+			terminoElTiempo = true;*/
 		
-		if(terminoElTiempo){
+		if(seTermino){
 			limpiarObjetosDelCampo();
 		}else{
 			if (Input.GetKeyUp("p") ){
@@ -120,7 +125,7 @@ public class Nivel3 : MonoBehaviour {
 	void updateMarcador(){
 		GameObject marcador = GameObject.Find("Marcador");
 		TextMesh t = (TextMesh)marcador.GetComponent(typeof(TextMesh));
-		t.text = "Goles: "+numGoles+"\nEscena: "+nivel+"    Tiempo: "+((int)timer);
+		t.text = "Goles: "+numGoles+"\nEscena: "+nivel;
 		//t.text = "Goles: "+numGoles+"\nTiempo: "+((int)timer);
 	}
 	
@@ -148,13 +153,10 @@ public class Nivel3 : MonoBehaviour {
 		nivel++;
 		
 
-		if(nivel == 32){
-			Application.LoadLevel(0);
+		if(nivel == 31){
+			seTermino = true;
 		}
-		if(nivel == 40){
-			voltearCancha();
-			Cancha.renderer.material = canchaMaterial1;
-		}
+		
 		
 		empezarNivel();
 		
